@@ -1,0 +1,15 @@
+Server:
+  port: "8081"
+
+DB:
+  databaseURL: "sdvcsd"
+  port: 5432
+  maxOpenConn: 15
+  maxIdleConn: 10
+  connLifetime: 10
+
+Token:
+  authToken: "test-token"
+
+Logger:
+  loggerLevel: "info"
