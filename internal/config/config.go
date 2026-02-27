@@ -22,9 +22,9 @@ type ServerConfig struct {
 type DBConfig struct {
 	DatabaseURL        string        `yaml:"databaseURL"`
 	Port               int           `yaml:"port" default:"5432"`
-	MaxOpenConnection  int           `yaml:"maxOpenConn" default:"15"`
-	MaxIdleConnection  int           `yaml:"maxIdleConn" default:"10"`
-	ConnectionLifetime time.Duration `yaml:"connLifetime" default:"3600s"`
+	MaxOpenConnection  int           `yaml:"maxOpenConnection" default:"15"`
+	MaxIdleConnection  int           `yaml:"maxIdleConnection" default:"10"`
+	ConnectionLifetime time.Duration `yaml:"connectionLifetime" default:"3600"`
 }
 
 type TokenConfig struct {

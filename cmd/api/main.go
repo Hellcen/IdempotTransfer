@@ -1,7 +1,7 @@
 package main
 
 import (
-	// "fmt"
+	"fmt"
 	"idempot/internal/config"
 	"log"
 )
@@ -12,5 +12,5 @@ func main(){
         log.Fatal("failed to load configuration:", err)
     }
 
-	// fmt.Println(config)
+	fmt.Println(config)
 }

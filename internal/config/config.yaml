@@ -4,9 +4,9 @@ Server:
 DB:
   databaseURL: "sdvcsd"
   port: 5432
-  maxOpenConn: 15
-  maxIdleConn: 10
-  connLifetime: 10
+  maxOpenConnection: 15
+  maxIdleConnection: 10
+  connectionLifetime: "600s"
 
 Token:
   authToken: "test-token"
