@@ -1,0 +1,18 @@
+Server:
+  port: "8080"
+  readTimeout: "15s"
+  writeTimeout: "15s"
+  idleTimeout: "60s"
+
+DB:
+  databaseURL: "postgres://postgres:postgres@postgres:5432/idempot?sslmode=disable"
+  port: 5432
+  maxOpenConnection: 15
+  maxIdleConnection: 10
+  connectionLifetime: "600s"
+
+Token:
+  authToken: "test-token"
+
+Logger:
+  loggerLevel: "info"

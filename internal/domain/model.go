@@ -15,11 +15,11 @@ const (
 )
 
 type WithdrawalReq struct {
-	UserID         string
-	Amount         float64
-	Currency       string
-	Destination    string
-	IdempotencyKey string
+	UserID         string  `json:"user_id" validate:"required"`
+	Amount         float64 `json:"amount" validate:"gt=0"`
+	Currency       string  `json:"currency" validate:"required"`
+	Destination    string  `json:"destination" validate:"required"`
+	IdempotencyKey string  `json:"idempotency_key" validate:"required"`
 }
 
 type Withdrawal struct {

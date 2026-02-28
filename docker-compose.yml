@@ -1,0 +1,55 @@
+services:
+  postgres:
+    image: postgres:14-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: idempot
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d idempot"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - idempot-network
+
+  api:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      CONFIG_FILE: /app/internal/config/config.production.yaml
+      DB_DATABASEURL: postgres://postgres:postgres@postgres:5432/idempot?sslmode=disable
+    env_file:
+      - .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - idempot-network
+
+  api-production:
+    build: .
+    ports:
+      - "8081:8080"
+    environment:
+      CONFIG_FILE: /app/internal/config/config.production.yaml
+      DB_DATABASEURL: postgres://postgres:postgres@postgres:5432/idempot?sslmode=disable
+    env_file:
+      - .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - idempot-network
+
+volumes:
+  postgres_data:
+
+networks:
+  idempot-network:
+    driver: bridge

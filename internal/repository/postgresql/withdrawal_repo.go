@@ -18,7 +18,8 @@ const (
 )
 
 var (
-	uniqueConstraint pq.ErrorCode = "23505"
+	uniqueConstraint   pq.ErrorCode = "23505"
+	lockNotAvailable   pq.ErrorCode = "55P03"
 )
 
 type withdrawalRepository struct {
@@ -177,6 +178,9 @@ func (r *balanceRepository) WithLock(ctx context.Context, userID string, fn func
 	_, err = tr.ExecContext(ctx, "SELECT id FROM balances WHERE user_id = $1 FOR UPDATE NOWAIT", userID)
 	if err != nil {
 		tr.Rollback()
+		if pqErr, ok := err.(*pq.Error); ok && pqErr.Code == lockNotAvailable {
+			return domain.ErrLockTimeout
+		}
 		if err == sql.ErrNoRows {
 			//Если нет записи, создаем
 			_, err = tr.ExecContext(ctx,
@@ -190,6 +194,9 @@ func (r *balanceRepository) WithLock(ctx context.Context, userID string, fn func
 			_, err = tr.ExecContext(ctx, "SELECT id FROM balances WHERE user_id = $1 FOR UPDATE NOWAIT", userID)
 			if err != nil {
 				tr.Rollback()
+				if pqErr, ok := err.(*pq.Error); ok && pqErr.Code == lockNotAvailable {
+					return domain.ErrLockTimeout
+				}
 				return err
 			}
 		} else {
