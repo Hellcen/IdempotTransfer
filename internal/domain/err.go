@@ -1,0 +1,8 @@
+package domain
+
+import "errors"
+
+var (
+	ErrDuplicateRequest   = errors.New("duplicate request")
+	ErrWithdrawalNotFound = errors.New("withdrawal not found")
+)

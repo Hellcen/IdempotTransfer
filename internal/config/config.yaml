@@ -1,8 +1,11 @@
 Server:
   port: "8081"
+  readTimeout: "10s"
+  writeTimeout: "10s"
+  idleTimeout: "10s"
 
 DB:
-  databaseURL: "sdvcsd"
+  databaseURL: "postgres://postgres:postgres@localhost:5432/postgres?sslmode=disable"
   port: 5432
   maxOpenConnection: 15
   maxIdleConnection: 10

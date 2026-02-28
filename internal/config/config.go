@@ -16,7 +16,10 @@ type Config struct {
 }
 
 type ServerConfig struct {
-	Port string `yaml:"port" default:"8080"`
+	Port         string        `yaml:"port" default:"8080"`
+	ReadTimeout  time.Duration `yaml:"readTimeout" default:"10s"`
+	WriteTimeout time.Duration `yaml:"writeTimeout" default:"10s"`
+	IdleTimeout  time.Duration `yaml:"idleTimeout" default:"10s"`
 }
 
 type DBConfig struct {
