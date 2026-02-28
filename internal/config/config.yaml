@@ -1,8 +1,8 @@
 Server:
   port: "8081"
-  readTimeout: "10s"
-  writeTimeout: "10s"
-  idleTimeout: "10s"
+  readTimeout: "15s"
+  writeTimeout: "15s"
+  idleTimeout: "60s"
 
 DB:
   databaseURL: "postgres://postgres:postgres@localhost:5432/postgres?sslmode=disable"

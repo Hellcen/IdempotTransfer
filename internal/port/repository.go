@@ -16,4 +16,6 @@ type WithdrawalRepository interface {
 
 type BalanceRepository interface {
 	GetBalance(ctx context.Context, userID string, currency string) (*domain.Balance, error)
+	WithLock(ctx context.Context, userID string, fn func(ctx context.Context) error) error
+	UpdateBalance(ctx context.Context, userID string, currency string, amount float64) error
 }
